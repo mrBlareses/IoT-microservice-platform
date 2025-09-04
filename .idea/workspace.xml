@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="b03fb923-acae-48cc-8c77-3d701afa34d9" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -8,6 +11,12 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="GradleModuleStateConfig" initialized="true" />
+  <component name="KotlinScriptingSettings">
+    <scriptDefinition className="io.amplicode.connekt.Connekt" definitionName="Connekt">
+      <order>-100</order>
+      <autoReloadConfigurations>true</autoReloadConfigurations>
+    </scriptDefinition>
+  </component>
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 1
 }]]></component>
@@ -29,6 +38,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\java\project\final project\IoT-microservice-platform" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -45,7 +59,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1756980491939</updated>
-      <workItem from="1756980493011" duration="298000" />
+      <workItem from="1756980493011" duration="369000" />
     </task>
     <servers />
   </component>

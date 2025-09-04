@@ -1,0 +1,12 @@
+
+make up:
+  cd infrastructure && docker-compose up -d
+
+make down:
+  cd infrastructure && docker-compose down
+
+make logs:
+  cd infrastructure && docker-compose logs -f
+
+make ps:
+  cd infrastructure && docker-compose ps

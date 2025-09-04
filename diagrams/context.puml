@@ -1,0 +1,54 @@
+@startuml IoT Platform Container
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+' Акторы
+Person(user, "Пользователь", "Управляет устройствами через UI/мобильное приложение")
+Person(engineer, "Инженер", "DevOps-инженер, настраивающий и мониторящий платформу")
+System_Ext(device, "IoT-устройство", "Внешний датчик или контроллер, отправляет телеметрию")
+
+' Внешние системы
+System_Ext(keycloak, "Keycloak", "Сервер аутентификации (SSO)")
+System_Ext(grafana, "Grafana", "Мониторинг и дашборды")
+
+System_Boundary(System_IoT, "IoT Microservice Platform") {
+
+  Container(java, "Java-сервисы", "Spring Boot", "REST API, обработка команд, бизнес-логика")
+
+  ContainerDb(postgres, "Postgres", "SQL Database", "Пользователи, роли, настройки")
+  ContainerDb(cassandra, "Cassandra", "NoSQL Database", "Телеметрия, временные ряды")
+  ContainerDb(redis, "Redis", "In-memory Database", "Кэш и состояния устройств")
+  ContainerDb(minio, "MinIO", "Object Storage", "Файлы, изображения, бинарные данные")
+
+  Container(kafka, "Kafka", "Message Broker", "Шина событий и команд")
+  Container(zookeeper, "Zookeeper", "Coordination Service", "Координация кластера Kafka")
+
+  Container(camunda, "Camunda", "BPMN Engine", "Оркестрация бизнес-процессов")
+
+  Container(prometheus, "Prometheus", "Monitoring", "Сбор метрик")
+  Container(loki, "Loki", "Logs", "Сбор и хранение логов")
+  Container(tempo, "Tempo", "Tracing", "Распределённый трейсинг")
+  Container(promtail, "Promtail", "Log Agent", "Агент сбора логов")
+}
+
+' Взаимодействия
+Rel(user, java, "HTTP/REST API для управления устройствами")
+Rel(device, kafka, "Телеметрия и команды", "MQTT/HTTP → Kafka")
+
+Rel(java, postgres, "CRUD пользователей и настроек")
+Rel(java, cassandra, "Запись телеметрии")
+Rel(java, redis, "Кэш и состояния")
+Rel(java, minio, "Хранение файлов")
+Rel(java, camunda, "Запуск бизнес-процессов")
+Rel(java, keycloak, "Проверка JWT токенов")
+
+Rel(engineer, grafana, "Просмотр метрик, логов и трасинга")
+Rel(prometheus, grafana, "Метрики")
+Rel(loki, grafana, "Логи")
+Rel(tempo, grafana, "Трейсинг")
+
+Rel(promtail, loki, "Отправка логов")
+Rel(java, prometheus, "Экспорт метрик /metrics")
+Rel(kafka, java, "Передача событий")
+Rel(zookeeper, kafka, "Координация")
+
+@enduml

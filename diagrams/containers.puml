@@ -1,0 +1,16 @@
+@startuml IoT Platform Context
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+Person(engineer, "Инженер", "DevOps-инженер, управляющий платформой через UI и просматривающий дашборды")
+Person(device, "IoT-устройство", "Датчик или контроллер, отправляющий телеметрию и получающий команды")
+System(System_IoT, "IoT Platform", "Микросервисная платформа для обработки телеметрии, управления устройствами и оркестрации процессов, включающая микросервисы, Kafka, Zookeeper, Schema Registry, PostgreSQL, Cassandra, Redis, MinIO, Camunda, Prometheus, Loki, Tempo, Promtail")
+System_Ext(keycloak, "Keycloak", "Сервер аутентификации и авторизации (SSO, OAuth2/OpenID Connect)")
+System_Ext(grafana, "Grafana", "Визуализация метрик, логов и трасинга")
+
+Rel(engineer, System_IoT, "Управление платформой", "HTTP/REST (Camunda UI, MinIO UI)")
+Rel(device, System_IoT, "Отправка телеметрии/получение команд", "MQTT/HTTP (via Kafka)")
+Rel(engineer, grafana, "Просмотр дашбордов", "HTTP")
+Rel(System_IoT, keycloak, "Аутентификация и проверка токенов", "OIDC")
+Rel(System_IoT, grafana, "Экспорт метрик, логов, трасинга", "Prometheus, Loki, Tempo")
+
+@enduml
