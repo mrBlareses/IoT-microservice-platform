@@ -1,3 +1,0 @@
-CREATE DATABASE app_db;
-CREATE DATABASE keycloak_db;
-CREATE DATABASE camunda_db;

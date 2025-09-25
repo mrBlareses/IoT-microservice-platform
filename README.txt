@@ -38,7 +38,19 @@ iot-platform/
 │   └── context.puml
 ├── infrastructure/           # Инфраструктура Docker
 │   ├── docker-compose.yaml
-│   └── init.sql
-├── .env                      # Переменные окружения
+│   ├── monitoring/           # Конфиги мониторинга
+│   │   ├── prometheus/
+│   │   │   └── prometheus.yml
+│   │   ├── tempo/
+│   │   │   └── tempo.yaml
+│   │   └── grafana/
+│   │       └── provisioning/
+│   ├── init-scripts/         # Скрипты инициализации БД
+│   │   └── create-databases.sql
+│   └── monitoring/              # мониторинг grafana
+│
+├── .env.example              # Шаблон переменных окружения
+├── .env                      # Локальные переменные (в .gitignore)
 ├── README.md                 # Описание проекта
-└── Makefile                  # Утилитарные команды для запуска/остановки
+├── Makefile                  # Утилитарные команды
+└── setup.sh                  # Скрипт первоначальной настройки
