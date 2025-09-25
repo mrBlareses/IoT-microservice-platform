@@ -4,12 +4,46 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b03fb923-acae-48cc-8c77-3d701afa34d9" name="Changes" comment="" />
+    <list default="true" id="b03fb923-acae-48cc-8c77-3d701afa34d9" name="Changes" comment="Added docker-compose.yml">
+      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/init-scripts/create-databases.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/IoT-microservice-platform.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/amplicode-jpa.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/init.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/prometheus.yml" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/prometheus/prometheus.yml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "mrBlareses"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/mrBlareses/IoT-microservice-platform.git",
+    "accountId": "e30e9272-361c-4ea1-95bb-d365803bcfc0"
+  }
+}]]></component>
   <component name="GradleModuleStateConfig" initialized="true" />
   <component name="KotlinScriptingSettings">
     <scriptDefinition className="io.amplicode.connekt.Connekt" definitionName="Connekt">
@@ -17,9 +51,9 @@
       <autoReloadConfigurations>true</autoReloadConfigurations>
     </scriptDefinition>
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="32EKrifbmtATystJCapsYtvTNkE" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -28,8 +62,10 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "git-widget-placeholder": "#1 on module-one",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/java/project/final project/IoT-microservice-platform",
+    "last_opened_file_path": "D:/java/project/final project/IoT-microservice-platform/infrastructure/loki",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -40,7 +76,15 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\java\project\final project\IoT-microservice-platform\infrastructure\loki" />
       <recent name="D:\java\project\final project\IoT-microservice-platform" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\java\project\final project\IoT-microservice-platform\infrastructure\tempo" />
+      <recent name="D:\java\project\final project\IoT-microservice-platform" />
+      <recent name="D:\java\project\final project\IoT-microservice-platform\infrastructure\prometheus" />
+      <recent name="D:\java\project\final project\IoT-microservice-platform\infrastructure" />
+      <recent name="D:\java\project\final project\IoT-microservice-platform\infrastructure\loki" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -59,11 +103,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1756980491939</updated>
-      <workItem from="1756980493011" duration="369000" />
+      <workItem from="1756980493011" duration="298000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added docker-compose.yml" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added docker-compose.yml" />
   </component>
 </project>
