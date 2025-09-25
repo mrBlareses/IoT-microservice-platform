@@ -10,3 +10,8 @@ make logs:
 
 make ps:
   cd infrastructure && docker-compose ps
+  
+  # Очистка Kafka кластера
+clean-kafka-cluster:
+  cd infrastructure && docker-compose rm -f zookeeper kafka1 kafka2 kafka3
+  cd infrastructure && docker-compose down -v zookeeper kafka1 kafka2 kafka3

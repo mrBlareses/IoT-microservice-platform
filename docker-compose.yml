@@ -7,7 +7,6 @@ services:
       POSTGRES_DB: app_db
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./init-scripts:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
     healthcheck:
@@ -57,6 +56,7 @@ services:
       - observability-net
     volumes:
       - ./monitoring/grafana:/var/lib/grafana
+      - grafana_data:/var/lib/grafana
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.3.0
@@ -252,7 +252,7 @@ services:
       KEYCLOAK_ADMIN: ${admin}
       KEYCLOAK_ADMIN_PASSWORD: ${admin123}
       KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak_db
+      KC_DB_URL: jdbc:postgresql://postgres:5432/app_db
       KC_DB_USERNAME: ${POSTGRES_USER}
       KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
       KC_HEALTH_ENABLED: true
@@ -276,7 +276,7 @@ services:
     image: camunda/camunda-bpm-platform:run-7.21.0
     environment:
       DB_DRIVER: org.postgresql.Driver
-      DB_URL: jdbc:postgresql://postgres:5432/camunda_db
+      DB_URL: jdbc:postgresql://postgres:5432/app_db
       DB_USERNAME: admin
       DB_PASSWORD: admin123
       WAIT_FOR_TIMEOUT: 30000
@@ -343,6 +343,7 @@ volumes:
   loki_data:
   tempo_data:
   schema_registry_data:
+  grafana_data:
 
 networks:
   observability-net:
