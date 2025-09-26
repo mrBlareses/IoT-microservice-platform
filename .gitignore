@@ -1,0 +1,54 @@
+# Игнорировать настройки IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+*.xml
+
+# Временные файлы IntelliJ (неотправленные изменения)
+Uncommitted_changes*
+shelved.patch*
+
+# Игнорировать сгенерированные файлы и директории
+target/
+build/
+out/
+
+# Игнорировать данные Docker (если монтируются локально)
+**/data/
+**/var/lib/
+
+# Конфиденциальные данные
+.env
+
+# Игнорировать временные файлы диаграмм или других инструментов
+diagrams/*.puml
+diagrams/*.png
+diagrams/*.svg
+
+# Игнорировать временные файлы Makefile
+Makefile.yml
+*.log
+*.tmp
+
+# Игнорировать файлы ОС (Windows, macOS)
+.DS_Store
+Thumbs.db
+
+# Игнорировать резервные копии
+*~
+*.bak
+
+# Игнорировать зависимости
+.gradle/
+gradlew.bat
+gradlew
+!gradle-wrapper.jar
+
+# Исключить ненужные файлы мониторинга
+monitoring/*.db
+monitoring/*.log
+
+# Исключить временные файлы Prometheus, Loki, Tempo
+infrastructure/*/data/
+infrastructure/*/logs/
