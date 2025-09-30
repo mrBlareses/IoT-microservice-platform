@@ -345,6 +345,6 @@ volumes:
   grafana_data:
 
 networks:
-  IoT-platform:
+  iot-net:
     driver: bridge
     name: iot-net
