@@ -4,20 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b03fb923-acae-48cc-8c77-3d701afa34d9" name="Changes" comment="Added docker-compose.yml">
-      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/init-scripts/create-databases.sql" afterDir="false" />
+    <list default="true" id="b03fb923-acae-48cc-8c77-3d701afa34d9" name="Changes" comment="Added fix #2 module one">
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/IoT-microservice-platform.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/amplicode-jpa.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infrastructure/docker-compose.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/infrastructure/init.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/infrastructure/prometheus.yml" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/prometheus/prometheus.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/init-scripts/create-databases.sql" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,23 +19,23 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="module-two" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "mrBlareses"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;mrBlareses&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/mrBlareses/IoT-microservice-platform.git",
-    "accountId": "e30e9272-361c-4ea1-95bb-d365803bcfc0"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/mrBlareses/IoT-microservice-platform.git&quot;,
+    &quot;accountId&quot;: &quot;e30e9272-361c-4ea1-95bb-d365803bcfc0&quot;
   }
-}]]></component>
+}</component>
   <component name="GradleModuleStateConfig" initialized="true" />
   <component name="KotlinScriptingSettings">
     <scriptDefinition className="io.amplicode.connekt.Connekt" definitionName="Connekt">
@@ -51,6 +43,10 @@
       <autoReloadConfigurations>true</autoReloadConfigurations>
     </scriptDefinition>
   </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -61,16 +57,24 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Docker.docker-compose.yml.prometheus: Compose Deployment.executor": "Run",
+    "Makefile Target.clean-kafka-cluster.executor": "Run",
+    "Makefile Target.down.executor": "Run",
+    "Makefile Target.help.executor": "Run",
+    "Makefile Target.logs.executor": "Run",
+    "Makefile Target.up.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "SONARLINT_PRECOMMIT_ANALYSIS": "true",
     "git-widget-placeholder": "#1 on module-one",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/java/project/final project/IoT-microservice-platform/infrastructure/loki",
+    "last_opened_file_path": "D:/java/project/prosolite",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -80,12 +84,59 @@
       <recent name="D:\java\project\final project\IoT-microservice-platform" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\java\project\final-project\IoT-microservice-platform" />
+      <recent name="D:\java\project\final-project\IoT-microservice-platform\infrastructure" />
       <recent name="D:\java\project\final project\IoT-microservice-platform\infrastructure\tempo" />
       <recent name="D:\java\project\final project\IoT-microservice-platform" />
       <recent name="D:\java\project\final project\IoT-microservice-platform\infrastructure\prometheus" />
-      <recent name="D:\java\project\final project\IoT-microservice-platform\infrastructure" />
-      <recent name="D:\java\project\final project\IoT-microservice-platform\infrastructure\loki" />
     </key>
+  </component>
+  <component name="RunManager" selected="Makefile Target.help">
+    <configuration name="clean-kafka-cluster" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="clean-kafka-cluster" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="down" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="down" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="help" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="help" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="logs" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="logs" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration name="up" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="up" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Makefile Target.up" />
+        <item itemvalue="Makefile Target.logs" />
+        <item itemvalue="Makefile Target.help" />
+        <item itemvalue="Makefile Target.down" />
+        <item itemvalue="Makefile Target.clean-kafka-cluster" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -104,7 +155,46 @@
       <option name="presentableId" value="Default" />
       <updated>1756980491939</updated>
       <workItem from="1756980493011" duration="298000" />
+      <workItem from="1758873459234" duration="5178000" />
+      <workItem from="1758888850557" duration="546000" />
+      <workItem from="1758889436056" duration="1952000" />
+      <workItem from="1758891430821" duration="5353000" />
+      <workItem from="1759133011868" duration="3820000" />
+      <workItem from="1759219446631" duration="1547000" />
     </task>
+    <task id="LOCAL-00001" summary="Added docker-compose.yml">
+      <option name="closed" value="true" />
+      <created>1758790679856</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1758790679856</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Added fix for module one">
+      <option name="closed" value="true" />
+      <created>1758810724454</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1758810724454</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added tempo &amp; loki config.yml">
+      <option name="closed" value="true" />
+      <created>1758884390278</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1758884390278</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added fix #2 module one">
+      <option name="closed" value="true" />
+      <created>1758897231665</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1758897231665</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -112,6 +202,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added docker-compose.yml" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added docker-compose.yml" />
+    <MESSAGE value="Added fix for module one" />
+    <MESSAGE value="Added tempo &amp; loki config.yml" />
+    <MESSAGE value="Added fix #2 module one" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added fix #2 module one" />
   </component>
 </project>

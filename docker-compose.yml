@@ -16,19 +16,19 @@ services:
       retries: 10
       start_period: 30s
     networks:
-      - IoT-platform
+      - iot-net
 
   postgres-exporter:
     image: prometheuscommunity/postgres-exporter:v0.15.0
     environment:
-      DATA_SOURCE_NAME: ${DATA_SOURCE_NAME}
+      DATA_SOURCE_NAME: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?sslmode=disable
     ports:
       - "9187:9187"
     depends_on:
       postgres:
         condition: service_healthy
     networks:
-      - IoT-platform
+      - iot-net
 
   prometheus:
     image: prom/prometheus:latest
@@ -38,7 +38,7 @@ services:
     volumes:
       - ./infrastructure/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
     networks:
-      - IoT-platform
+      - iot-net
 
   grafana:
     image: grafana/grafana-oss:latest
@@ -53,7 +53,7 @@ services:
     depends_on:
       - prometheus
     networks:
-      - IoT-platform
+      - iot-net
     volumes:
       - ./monitoring/grafana:/var/lib/grafana
       - grafana_data:/var/lib/grafana
@@ -66,7 +66,7 @@ services:
     ports:
       - "2181:2181"
     networks:
-      - IoT-platform
+      - iot-net
     healthcheck:
       test: [ "CMD", "nc", "-z", "localhost", "2181" ]
       interval: 10s
@@ -97,7 +97,7 @@ services:
       zookeeper:
         condition: service_healthy
     networks:
-      - IoT-platform
+      - iot-net
 
   kafka2:
     image: confluentinc/cp-kafka:7.5.0
@@ -122,7 +122,7 @@ services:
       zookeeper:
         condition: service_healthy
     networks:
-      - IoT-platform
+      - iot-net
 
   kafka3:
     image: confluentinc/cp-kafka:7.5.0
@@ -147,7 +147,7 @@ services:
       zookeeper:
         condition: service_healthy
     networks:
-      - IoT-platform
+      - iot-net
 
   kafka-exporter:
     image: danielqsj/kafka-exporter
@@ -167,7 +167,7 @@ services:
       kafka3:
         condition: service_healthy
     networks:
-      - IoT-platform
+      - iot-net
     healthcheck:
       test: [ "CMD", "wget", "--spider", "-q", "http://localhost:9308/metrics" ]
       interval: 10s
@@ -190,7 +190,7 @@ services:
       zookeeper:
         condition: service_healthy
     networks:
-      - IoT-platform
+      - iot-net
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:8081/subjects" ]
       interval: 10s
@@ -211,7 +211,7 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      - IoT-platform
+      - iot-net
 
   redis:
     image: redis:7.0
@@ -225,7 +225,7 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      - IoT-platform
+      - iot-net
 
   minio:
     image: minio/minio:latest
@@ -244,7 +244,7 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      - IoT-platform
+      - iot-net
 
   keycloak:
     image: quay.io/keycloak/keycloak:26.0
@@ -252,7 +252,7 @@ services:
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
       KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+      KC_DB_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
       KC_DB_USERNAME: ${POSTGRES_USER}
       KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
       KC_HEALTH_ENABLED: true
@@ -270,13 +270,13 @@ services:
       retries: 5
       start_period: 30s
     networks:
-      - IoT-platform
+      - iot-net
 
   camunda:
     image: camunda/camunda-bpm-platform:run-7.21.0
     environment:
       DB_DRIVER: org.postgresql.Driver
-      DB_URL: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+      DB_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
       DB_USERNAME: ${POSTGRES_USER}
       DB_PASSWORD: ${POSTGRES_PASSWORD}
       WAIT_FOR_TIMEOUT: 30000
@@ -293,7 +293,7 @@ services:
       retries: 5
       start_period: 30s
     networks:
-      - IoT-platform
+      - iot-net
 
   loki:
     image: grafana/loki:3.2.0
@@ -309,7 +309,7 @@ services:
       timeout: 5s
       retries: 5
     networks:
-      - IoT-platform
+      - iot-net
 
   tempo:
     image: grafana/tempo:2.6.0
@@ -325,7 +325,7 @@ services:
       retries: 5
       start_period: 30s
     networks:
-      - IoT-platform
+      - iot-net
 
 volumes:
   postgres_data:
@@ -347,4 +347,4 @@ volumes:
 networks:
   IoT-platform:
     driver: bridge
-    name: IoT-platform
+    name: iot-net
