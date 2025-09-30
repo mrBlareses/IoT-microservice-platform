@@ -1,0 +1,61 @@
+@startuml c4component
+!define RECTANGLE class
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+' Стили
+skinparam monochrome true
+skinparam defaultFontSize 14
+skinparam defaultFontName Arial
+skinparam shadowing false
+
+' Определение контейнера
+Container(events_collector_service_container, "events-collector-service", "Java 24 / Spring Boot 3.5") {
+  Component(DeviceEvent, "DeviceEvent", "Модель события")
+  Component(DeviceEventRepository, "DeviceEventRepository", "Репозиторий", "")
+  Component(EventProcessingService, "EventProcessingService", "Сервис обработки", "")
+  Component(KafkaEventListener, "KafkaEventListener", "Слушатель Kafka")
+  Component(DeviceIdProducer, "DeviceIdProducer", "Продюсер")
+}
+
+' Внешние системы
+System_Ext(KafkaEventsTopic, "Kafka Events Topic", "Apache Kafka", "Топик events с Avro-событиями")
+System_Ext(KafkaDeviceIdTopic, "Kafka DeviceId Topic", "Apache Kafka", "Топик device-id-topic для уникальных device_id")
+System_Ext(CassandraSystem, "Cassandra", "Apache Cassandra", "Хранилище событий")
+
+' Связи внутри контейнера
+Rel(KafkaEventListener, EventProcessingService, "передаёт событие для обработки")
+Rel(EventProcessingService, DeviceEventRepository, "сохраняет событие")
+Rel(EventProcessingService, DeviceIdProducer, "отправляет уникальный device_id")
+Rel(DeviceEventRepository, DeviceEvent, "использует модель")
+Rel(EventProcessingService, DeviceEvent, "использует модель")
+Rel(KafkaEventListener, DeviceEvent, "десериализует в модель")
+
+' Связи с внешними системами
+Rel(KafkaEventsTopic, KafkaEventListener, "отправляет Avro-события")
+Rel(DeviceIdProducer, KafkaDeviceIdTopic, "отправляет уникальные device_id")
+Rel(DeviceEventRepository, CassandraSystem, "сохраняет в таблицу")
+
+' Легенда
+legend right
+  |== Внешние системы |
+  | KafkaEventsTopic | Apache Kafka (топик: events)
+  | KafkaDeviceIdTopic | Apache Kafka (топик: device-id-topic)
+  | CassandraSystem | Apache Cassandra (таблица: device_events_by_device)
+
+  |== Компоненты сервиса |
+  | DeviceEvent | DTO для события (соответствует Avro схеме)
+  | DeviceEventRepository | Репозиторий для сохранения в Cassandra
+  | EventProcessingService | Сервис обработки событий
+  | KafkaEventListener | Слушатель Kafka
+  | DeviceIdProducer | Продюсер для отправки device_id
+
+  |== Действия |
+  | передаёт событие для обработки | Передача события в сервис
+  | сохраняет событие | Сохранение в Cassandra
+  | отправляет уникальный device_id | Публикация в топик
+  | использует модель | Использование DTO
+  | десериализует в модель | Преобразование Avro в объект
+  | отправляет Avro-события | Получение событий из Kafka
+end legend
+
+@enduml
