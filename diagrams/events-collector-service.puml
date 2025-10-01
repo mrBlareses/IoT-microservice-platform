@@ -15,32 +15,36 @@ Container(events_collector_service_container, "events-collector-service", "Java 
   Component(EventProcessingService, "EventProcessingService", "Сервис обработки", "")
   Component(KafkaEventListener, "KafkaEventListener", "Слушатель Kafka")
   Component(DeviceIdProducer, "DeviceIdProducer", "Продюсер")
+  Component(DeduplicationService, "DeduplicationService", "Сервис дедупликации", "Проверка дублей device_id")
 }
 
 ' Внешние системы
-System_Ext(KafkaEventsTopic, "Kafka Events Topic", "Apache Kafka", "Топик events с Avro-событиями")
-System_Ext(KafkaDeviceIdTopic, "Kafka DeviceId Topic", "Apache Kafka", "Топик device-id-topic для уникальных device_id")
-System_Ext(CassandraSystem, "Cassandra", "Apache Cassandra", "Хранилище событий")
+SystemQueue_Ext(kafka, "Apache Kafka", "Message broker with 'events' and 'device-id-topic' topics")
+ComponentDb(cassandra, "Apache Cassandra", "NoSQL Database", "Events data storage")
+ComponentDb(redis, "Redis", "In-memory data store", "Deduplication cache")
 
 ' Связи внутри контейнера
-Rel(KafkaEventListener, EventProcessingService, "передаёт событие для обработки")
-Rel(EventProcessingService, DeviceEventRepository, "сохраняет событие")
-Rel(EventProcessingService, DeviceIdProducer, "отправляет уникальный device_id")
-Rel(DeviceEventRepository, DeviceEvent, "использует модель")
-Rel(EventProcessingService, DeviceEvent, "использует модель")
-Rel(KafkaEventListener, DeviceEvent, "десериализует в модель")
+Rel(KafkaEventListener, DeduplicationService, "передаёт событие", "Java Method Call")
+Rel(DeduplicationService, EventProcessingService, "передаёт уникальное событие", "Java Method Call")
+Rel(EventProcessingService, DeviceEventRepository, "сохраняет событие", "Java Method Call")
+Rel(EventProcessingService, DeviceIdProducer, "отправляет device_id", "Java Method Call")
+Rel(DeviceEventRepository, DeviceEvent, "использует", "Java Object")
+Rel(EventProcessingService, DeviceEvent, "использует", "Java Object")
+Rel(KafkaEventListener, DeviceEvent, "десериализует в", "Avro Deserialization")
+Rel(DeduplicationService, DeviceEvent, "проверяет уникальность", "Java Object")
 
 ' Связи с внешними системами
-Rel(KafkaEventsTopic, KafkaEventListener, "отправляет Avro-события")
-Rel(DeviceIdProducer, KafkaDeviceIdTopic, "отправляет уникальные device_id")
-Rel(DeviceEventRepository, CassandraSystem, "сохраняет в таблицу")
+Rel(kafka, KafkaEventListener, "доставляет события", "Kafka Consumer API")
+Rel(DeviceIdProducer, kafka, "публикует device_id", "Kafka Producer API")
+Rel(DeviceEventRepository, cassandra, "сохраняет события", "CQL")
+Rel(DeduplicationService, redis, "проверяет дубли", "Redis API")
 
 ' Легенда
 legend right
   |== Внешние системы |
-  | KafkaEventsTopic | Apache Kafka (топик: events)
-  | KafkaDeviceIdTopic | Apache Kafka (топик: device-id-topic)
-  | CassandraSystem | Apache Cassandra (таблица: device_events_by_device)
+  | Apache Kafka | Брокер сообщений с топиками: events, device-id-topic |
+  | Apache Cassandra | База данных для хранения событий |
+  | Redis | In-memory кэш для проверки дубликатов |
 
   |== Компоненты сервиса |
   | DeviceEvent | DTO для события (соответствует Avro схеме)
@@ -48,14 +52,16 @@ legend right
   | EventProcessingService | Сервис обработки событий
   | KafkaEventListener | Слушатель Kafka
   | DeviceIdProducer | Продюсер для отправки device_id
+  | DeduplicationService | Проверка дубликатов device_id
 
-  |== Действия |
-  | передаёт событие для обработки | Передача события в сервис
-  | сохраняет событие | Сохранение в Cassandra
-  | отправляет уникальный device_id | Публикация в топик
-  | использует модель | Использование DTO
-  | десериализует в модель | Преобразование Avro в объект
-  | отправляет Avro-события | Получение событий из Kafka
+  |== Протоколы и технологии |
+  | Java Method Call | Внутренний вызов метода
+  | Java Object | Использование модели данных
+  | Avro Deserialization | Преобразование Avro в объект
+  | Kafka Consumer API | Подписка на топик Kafka
+  | Kafka Producer API | Публикация в топик Kafka
+  | CQL | Cassandra Query Language
+  | Redis API | Проверка и сохранение ключей в Redis
 end legend
 
 @enduml
