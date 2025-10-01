@@ -5,7 +5,6 @@
 - [Состав репозитория](#состав-репозитория)
 - [Быстрый старт](#быстрый-старт)
 - [Ручной запуск (без Makefile)](#ручной-запуск-без-makefile)
-- [Ручной запуск (без Makefile)](#ручной-запуск-без-makefile)
 - [Порты и сервисы](#порты-и-сервисы)
 - [Конфигурация (ENV)](#конфигурация-env)
 - [Наблюдаемость](#наблюдаемость)
@@ -20,11 +19,13 @@
 Основные компоненты:
 - PostgreSQL (хранение данных пользователей и ролей)
 - Redis (кэш и состояния)
+- Cassandra (База данных NoSQL)
 - Kafka + Zookeeper (шина событий)
 - MinIO (объектное хранилище)
 - Keycloak (аутентификация и авторизация)
 - Camunda (оркестрация процессов)
 - Prometheus, Grafana, Loki, Tempo (наблюдаемость и мониторинг)
+- Schema registry (управление схемами для Kafka)
 
 ---
 
@@ -39,20 +40,24 @@
 ## Быстрый старт
 
 ```bash
-# Запуск всех сервисов
+# Показать справку по доступным командам
+make help
+
+# Запуск всех контейнеров
 make up
 
-# Просмотр логов
+# Остановка и удаление всех контейнеров
+make down
+
+# Просмотр логов контейнеров (с флагом -f для слежения)
 make logs
 
 # Проверка статуса
 make ps
 
-# Перезапуск сервисов
-make restart
+# Очистка Kafka кластера
+make clean-kafka-cluster
 
-# Полная очистка окружения
-make clean
 ```
 
 Требуется: Docker (compose), JDK 24, make.
@@ -75,13 +80,22 @@ docker compose -f docker-compose.yml --env-file .env down
 
 | Сервис            | Порт (host) | Описание                                     |
 |-------------------|-------------|----------------------------------------------|
-| Keycloak          | 8080        | Dev-режим, импорт realm `individual`         |
+| Keycloak          | 8080        | Аутентификация/авторизация                   |
 | Prometheus        | 9090        | Метрики                                      |
 | Grafana           | 3000        | Dashboard + Explore                          |
 | Tempo             | 3200        | Хранилище трассировок (OTLP)                 |
 | Loki              | 3100        | Хранилище логов                              |
-| Postgres (persons)| 5434        | Контейнер `person-postgres`                  |
-
+| Postgres          | 5432        | Основная база данных                         |
+| Postgres Exporter | 9187        | Экспортер метрик PostgreSQL для Prometheus   |   
+| MinIO API         | 9000        | API для объектного хранилища                 |   
+| MinIO Console     | 9001        | Веб-интерфейс для управления MinIO           |   
+| Cassandra         | 9042        | База данных NoSQL                            |   
+| Redis             | 6379        | Кэш и хранилище ключ-значение                |   
+| Schema registry   | 8081        | Управление схемами для Kafka                 |   
+| Zookeeper         | 2181        | Координация для Kafka                        |   
+| Kafka1            | 9092        | Брокер Kafka 1                               |   
+| Kafka2            | 9093        | Брокер Kafka 2                               |   
+| Kafka3            | 9094        | Брокер Kafka 3                               |   
 ---
 
 ## Наблюдаемость
@@ -97,7 +111,8 @@ docker compose -f docker-compose.yml --env-file .env down
 
 - **Проблема с портами** — убедитесь, что порты не заняты локальными сервисами.  
 - **Keycloak не стартует** — проверьте, что Postgres поднят и доступен.  
-- **Grafana пустая** — настройте data source на Prometheus.  
+- **Grafana пустая** — настройте data source на Prometheus.
+- **Не стартует Kafka кдастер** - очистите Kafka кластер  
 
 ---
 
@@ -110,12 +125,13 @@ iot-platform/
 │   └── context.puml
 ├── infrastructure/               # Инфраструктура Docker
 │   ├── monitoring/
-│   │   ├── prometheus/prometheus.yml
-│   │   ├── loki/loki-config.yaml
-│   │   ├── tempo/tempo-config.yaml
-│   │   └── grafana/{dashboards,provisioning}
+│   │   └──grafana
+│   │       └──grafana.db         # База данных Grafana (DataSource, Dashboards, Panels) 
+│   ├── prometheus/prometheus.yml
+│   ├── loki/loki-config.yaml
+│   ├── tempo/tempo-config.yaml
+│   └── grafana/{dashboards,provisioning}
 ├── docker-compose.yaml           # Docker Compose для сервисов
-├── .env.example                  # Пример конфигурации окружения
 ├── .env                          # Локальные переменные (в .gitignore)
 ├── README.md                     # Документация проекта
 └── Makefile                      # Утилитарные команды
